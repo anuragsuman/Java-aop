@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "45243e26-b3e8-4ad9-ba5d-25d8d8611ee2",
+		"name": "aop_example",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"value": "123",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/add/employee?empId=1&firstName=\"anurag\"&secondName=\"suman\"",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"add",
+						"employee"
+					],
+					"query": [
+						{
+							"key": "empId",
+							"value": "1"
+						},
+						{
+							"key": "firstName",
+							"value": "\"anurag\""
+						},
+						{
+							"key": "secondName",
+							"value": "\"suman\""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
