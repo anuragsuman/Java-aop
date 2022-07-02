@@ -1,6 +1,7 @@
 package com.javatpoint.aspect;
 
 import ch.qos.logback.core.net.SyslogOutputStream;
+import com.javatpoint.UnauthorizeException;
 import com.javatpoint.model.Employee;
 import com.javatpoint.model.Error;
 import org.aspectj.lang.JoinPoint;
@@ -24,20 +25,42 @@ public class EmployeeServiceAspect {
 	@Autowired
 	private HttpServletRequest httpServletRequest;
 
-	@Pointcut(value= "execution(* com.javatpoint.service.EmployeeService.*(..)) and args(empId, fname, sname)")
-	private void logDisplayingBalance() throws Exception {
+	@Pointcut(value= "execution(* com.javatpoint.service.EmployeeService.*(..))")
+	public void logDisplayingBalance() {
+	}
+
+	@Before("logDisplayingBalance()")
+	public void employeeValidationToken(JoinPoint joinPoint) throws  Exception{
+		if(!isTokenValid()){
+			throw new UnauthorizeException();
+		}
+	}
+
+	private boolean isTokenValid() throws Exception {
+		String headerName = httpServletRequest.getHeader("access_token");
+		try {
+			if (headerName.equalsIgnoreCase("123")) {
+				return true;
+			}else{
+				return false;
+			}
+		}catch (Exception e){
+			throw new UnauthorizeException();
+		}
 	}
 
 	@Around("logDisplayingBalance()")
-	public Object around(ProceedingJoinPoint jp) throws Throwable{
+	public Object handleError(ProceedingJoinPoint jp) throws Throwable{
 		String headerName = httpServletRequest.getHeader("access_token");
-		if(!headerName.equalsIgnoreCase("123")){
-			System.out.println("1232");
-			System.out.println(jp.proceed().getClass().getCanonicalName());
-			Error error = new Error();
-			//commit
-			error.setErrorDesc("token is not valid");
-			return error;
+		Employee error = new Employee();
+		error.setErrorCode("INVALID_TOKEN");
+		error.setErrorMsg("token is not valid");
+		try{
+			return jp.proceed();
+		}catch (UnauthorizeException e) {
+			if (jp.getSignature().getName().equalsIgnoreCase("createEmployee")) {
+				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+			}
 		}
 		return  null;
 	}
