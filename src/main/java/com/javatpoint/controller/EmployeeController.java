@@ -1,6 +1,7 @@
 package com.javatpoint.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,11 +17,16 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 
 	@RequestMapping(value = "/add/employee", method = RequestMethod.GET)
-	public com.javatpoint.model.Employee addEmployee(@RequestParam("empId") String empId,
-													 @RequestParam("firstName") String firstName,
-													 @RequestParam("secondName") String secondName) {
-
-		return employeeService.createEmployee(empId, firstName, secondName);
+	public ResponseEntity<Employee> addEmployee(@RequestParam("empId") String empId,
+												@RequestParam("firstName") String firstName,
+												@RequestParam("secondName") String secondName) throws Exception{
+		ResponseEntity<Employee> employee = null;
+		try{
+			employee = employeeService.createEmployee(empId,firstName,secondName);
+		}catch (Exception e){
+			System.out.println(1111);
+		}
+		return employee;
 
 	}
 
