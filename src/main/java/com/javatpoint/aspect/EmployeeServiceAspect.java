@@ -53,8 +53,8 @@ public class EmployeeServiceAspect {
 	public Object handleError(ProceedingJoinPoint jp) throws Throwable{
 		String headerName = httpServletRequest.getHeader("access_token");
 		Employee error = new Employee();
-		error.setErrorCode("INVALID_TOKEN......");
-		error.setErrorMsg("token is not valid");
+		error.setErrorCode("INVALID_TOKEN");
+		error.setErrorMsg("token is not valid..............");
 		try{
 			return jp.proceed();
 		}catch (UnauthorizeException e) {
