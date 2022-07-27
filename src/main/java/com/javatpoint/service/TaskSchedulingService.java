@@ -2,11 +2,13 @@ package com.javatpoint.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ScheduledFuture;
 
+@Service
 public class TaskSchedulingService {
 
     @Autowired

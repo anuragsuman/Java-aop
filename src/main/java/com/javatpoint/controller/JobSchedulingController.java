@@ -52,7 +52,7 @@ public class JobSchedulingController {
     @Autowired
     Day0Runnable day0Runnable;
 
-    @GetMapping("/sheduledjobmsgtable")
+    @GetMapping("/sheduledjobmsgtable1")
     public String jobSP(){
         taskSchedulingService.scheduleDayZero("jobId", day0Runnable, "/30 * * * * *");
         return "success";
