@@ -1,0 +1,7 @@
+edmpscheduler:
+  remoteHost: "10.8.9.100"
+  userName: "admin"
+  remotePath: "/ctrl/abc/incomingfile"
+  privateKey: "/home/admin/.ssh/id_rsa_test"
+  knownHost: "/home/admin/.ssh/known_hosts"
+  passPhrase: "changeit"
