@@ -24,7 +24,7 @@ public class JobSchedulingController {
     @Autowired
     SFTPService sftpService;
 
-    @Scheduled(cron = "*/20 * * * * *")
+    //@Scheduled(cron = "*/20 * * * * *")
     public String dailyJob(){
         sftpService.send();
         return ResponseEntity.ok("abc").getBody();
