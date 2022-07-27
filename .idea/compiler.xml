@@ -10,7 +10,7 @@
         <module name="aop-before-advice-example" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8">
       <module name="aop-before-advice-example" target="1.8" />
     </bytecodeTargetLevel>
   </component>
